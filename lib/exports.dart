@@ -11,7 +11,7 @@ export 'animations/entrance_faser.dart';
 
 // Screen Exports
 export 'views/splash_screen.dart';
-export 'views/default_screen.dart';
+export 'views/home_screen.dart';
 export 'views/profile/new_user_screen.dart';
 
 // Authentication Exports

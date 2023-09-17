@@ -40,26 +40,32 @@ class UserCubit extends Cubit<UserState> {
       await _userCollection.doc(user.userId).set(userInfo.toMap());
       emit(UserLoaded(userInfo));
     } on FirebaseException catch (e) {
-      emit(UserError(e.message ?? ''));
+      emit(UserError(e.message ?? 'Unable to Register User!'));
     } catch (e) {
       emit(UserError(e.toString()));
     }
   }
 
-  // static Future<void> updateImageURL(String id, String imageURL) async {
-  //   try {
-  //     await _userCollection.doc(id).update({'imageURL': imageURL});
-  //   } on FirebaseException catch (e) {
-  //     status = {'code': e.code, 'message': e.message};
-  //   } catch (e) {
-  //     status = {'code': '500', 'message': e.toString()};
-  //   }
-  // }
-
-  static Future<String> _uploadImage(File file, String name) async {
+  Future<String> _uploadImage(File file, String name) async {
     final ref = _storage.ref("images/$name");
     final uploadTask = ref.putFile(file);
     final snapshot = await uploadTask.whenComplete(() {});
     return await snapshot.ref.getDownloadURL();
+  }
+
+  Future<void> updateName(String uid, String name) async {
+    try {
+      _userCollection.doc(uid).update({'userName': name});
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  Future<void> updateAbout(String uid, String about) async {
+    try {
+      _userCollection.doc(uid).update({'userAbout': about});
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 }

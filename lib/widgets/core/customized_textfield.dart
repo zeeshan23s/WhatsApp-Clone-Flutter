@@ -6,13 +6,15 @@ class CustomizedTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final bool obscureText;
   final String? Function(String?)? validator;
+  final String? initialValue;
   const CustomizedTextField(
       {super.key,
       required this.name,
       required this.hintText,
       this.suffixIcon,
       this.obscureText = false,
-      this.validator});
+      this.validator,
+      this.initialValue});
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +23,7 @@ class CustomizedTextField extends StatelessWidget {
       child: FormBuilderTextField(
         textInputAction: TextInputAction.next,
         validator: validator,
+        initialValue: initialValue,
         name: name,
         style: Theme.of(context)
             .textTheme

@@ -1,3 +1,5 @@
+import 'package:chat_app/cubits/profile_image/profile_image_cubit.dart';
+
 import 'exports.dart';
 
 void main() async {
@@ -20,6 +22,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => AuthCubit()),
         BlocProvider(create: (_) => EmailVerificationCubit()),
         BlocProvider(create: (_) => UserCubit()),
+        BlocProvider(create: (_) => ProfileImageCubit()),
       ],
       child: MaterialApp(
         title: 'WhatsApp',

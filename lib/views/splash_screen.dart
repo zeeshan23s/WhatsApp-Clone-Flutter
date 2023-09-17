@@ -26,7 +26,7 @@ class SplashScreen extends StatelessWidget {
                     builder: (context, userState) {
                       if (userState is UserLoaded) {
                         if (userState.appUser != null) {
-                          return const DefaultScreen();
+                          return HomeScreen(appUser: userState.appUser!);
                         } else {
                           return const NewUserScreen();
                         }
