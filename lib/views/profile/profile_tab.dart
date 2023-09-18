@@ -10,6 +10,7 @@ class ProfileTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthState authState = BlocProvider.of<AuthCubit>(context).state;
     return Padding(
       padding: EdgeInsets.symmetric(
         vertical: Responsive.screenHeight(context) * 0.02,
@@ -108,7 +109,7 @@ class ProfileTab extends StatelessWidget {
                   tailingWidget: IconButton(
                     onPressed: () => CustomizedModelSheets.bottomSheet(
                       context: context,
-                      child: editProfileFields(
+                      child: _editProfileFields(
                           context: context,
                           title: 'Enter your name',
                           field: CustomizedTextField(
@@ -138,7 +139,7 @@ class ProfileTab extends StatelessWidget {
                   tailingWidget: IconButton(
                     onPressed: () => CustomizedModelSheets.bottomSheet(
                       context: context,
-                      child: editProfileFields(
+                      child: _editProfileFields(
                           context: context,
                           title: 'Tell us about yourself',
                           field: CustomizedTextField(
@@ -152,12 +153,14 @@ class ProfileTab extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: Responsive.screenHeight(context) * 0.015),
-                profileField(
-                  context: context,
-                  prefixIcon: const Icon(Icons.email_outlined),
-                  fieldName: 'Email',
-                  fieldValue: user['userEmail'],
-                )
+                authState is Authenticated
+                    ? profileField(
+                        context: context,
+                        prefixIcon: const Icon(Icons.email_outlined),
+                        fieldName: 'Email',
+                        fieldValue: authState.user.email!,
+                      )
+                    : const SizedBox()
               ],
             );
           } else {
@@ -217,7 +220,7 @@ class ProfileTab extends StatelessWidget {
     );
   }
 
-  Widget editProfileFields(
+  Widget _editProfileFields(
       {required BuildContext context,
       required String title,
       required Widget field,

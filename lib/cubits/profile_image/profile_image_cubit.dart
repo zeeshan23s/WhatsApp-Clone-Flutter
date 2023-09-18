@@ -21,7 +21,9 @@ class ProfileImageCubit extends Cubit<ProfileImageState> {
       if (profileImage != null) {
         imageRef = await _uploadImage(profileImage, user.userId);
       }
-      await _userCollection.doc(user.userId).update({'imageURL': imageRef});
+      await _userCollection
+          .doc(user.userId)
+          .update({'profileImageURL': imageRef});
       emit(ImageLoaded(imageRef));
     } on FirebaseException catch (e) {
       emit(ImageError(e.message ?? 'Unable to update image!'));

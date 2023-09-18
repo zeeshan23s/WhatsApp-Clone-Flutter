@@ -13,10 +13,13 @@ export 'animations/entrance_faser.dart';
 export 'views/splash_screen.dart';
 export 'views/home_screen.dart';
 export 'views/profile/new_user_screen.dart';
+export 'views/loading_screen.dart';
+export 'views/chat/search_user_screen.dart';
+export 'views/chat/all_user_screen.dart';
+export 'views/setting_screen.dart';
 
 // Authentication Exports
 export 'views/authentication/privacy_policy_screen.dart';
-export 'package:chat_app/views/loading_screen.dart';
 export 'views/authentication/signin_screen.dart';
 export 'views/authentication/signup_form.dart';
 export 'views/authentication/forgot_password_form.dart';

@@ -71,6 +71,19 @@ class AuthCubit extends Cubit<AuthState> {
     emit(Unauthenticated());
   }
 
+  Future<void> deleteAccount() async {
+    await _auth.currentUser?.delete();
+    emit(Unauthenticated());
+  }
+
+  Future<void> changeAccountEmail(String newEmail) async {
+    try {
+      await _auth.currentUser!.verifyBeforeUpdateEmail(newEmail);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
   void switchUnauthenticatedState(String page) {
     if (page == 'Login') {
       emit(Unauthenticated());

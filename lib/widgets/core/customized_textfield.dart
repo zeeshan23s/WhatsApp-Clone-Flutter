@@ -19,7 +19,7 @@ class CustomizedTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.sizeOf(context).width * 0.9,
+      width: Responsive.screenWidth(context) * 0.9,
       child: FormBuilderTextField(
         textInputAction: TextInputAction.next,
         validator: validator,
@@ -46,7 +46,6 @@ class CustomizedTextField extends StatelessWidget {
           errorBorder: AppTextFieldConstants.kErrorOutlineBorder,
           focusedErrorBorder: AppTextFieldConstants.kErrorOutlineBorder,
         ),
-        minLines: null,
       ),
     );
   }

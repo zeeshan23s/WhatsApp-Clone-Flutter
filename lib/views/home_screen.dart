@@ -33,7 +33,15 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        SearchUserScreen(uid: widget.appUser.userId),
+                  ),
+                );
+              },
               icon: const Icon(Icons.search, color: AppColors.kScaffoldColor),
             ),
             IconButton(
@@ -148,27 +156,42 @@ class _HomeScreenState extends State<HomeScreen> {
             isMenuOpen
                 ? Positioned(
                     right: Responsive.screenWidth(context) * 0.04,
-                    child: GestureDetector(
-                      onTap: () {
-                        final authCubit = BlocProvider.of<AuthCubit>(context);
-                        authCubit.signOut();
-                      },
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: Responsive.screenHeight(context) * 0.020,
-                          horizontal: Responsive.screenWidth(context) * 0.06,
-                        ),
-                        decoration: BoxDecoration(
-                            color: AppColors.kScaffoldColor,
-                            borderRadius: BorderRadius.circular(
-                                Responsive.screenWidth(context) * 0.025)),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        vertical: Responsive.screenHeight(context) * 0.020,
+                        horizontal: Responsive.screenWidth(context) * 0.06,
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppColors.kScaffoldColor,
+                        borderRadius: BorderRadius.circular(
+                            Responsive.screenWidth(context) * 0.025),
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.kSecondaryColor.withOpacity(0.1),
+                            offset: const Offset(1, 1),
+                          ),
+                          BoxShadow(
+                            color: AppColors.kSecondaryColor.withOpacity(0.1),
+                            offset: const Offset(-1, -1),
+                          ),
+                        ],
+                      ),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SettingScreen(),
+                            ),
+                          );
+                        },
                         child: Row(
                           children: [
-                            const Icon(Icons.logout, size: 20),
+                            const Icon(Icons.settings, size: 20),
                             SizedBox(
                                 width: Responsive.screenWidth(context) * 0.025),
                             Text(
-                              'Logout',
+                              'Settings',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyMedium
@@ -182,6 +205,25 @@ class _HomeScreenState extends State<HomeScreen> {
                 : const SizedBox(),
           ],
         ),
+        floatingActionButton: tabIndex == 0
+            ? FloatingActionButton(
+                backgroundColor: AppColors.kPrimaryColor,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AllUsersScreen(
+                        uid: widget.appUser.userId,
+                      ),
+                    ),
+                  );
+                },
+                child: const Icon(
+                  Icons.chat,
+                  color: AppColors.kScaffoldColor,
+                ),
+              )
+            : const SizedBox(),
       ),
     );
   }

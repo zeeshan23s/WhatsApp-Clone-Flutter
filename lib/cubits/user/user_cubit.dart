@@ -15,6 +15,7 @@ class UserCubit extends Cubit<UserState> {
       final userInfo = AppUser(
           userId: uid,
           userName: appUser['userName'],
+          profileImageURL: appUser['profileImageURL'],
           userEmail: appUser['userEmail'],
           userAbout: appUser['userAbout']);
       emit(UserLoaded(userInfo));
@@ -46,6 +47,10 @@ class UserCubit extends Cubit<UserState> {
     }
   }
 
+  Future<void> deleteUser(String uid) async {
+    await _userCollection.doc(uid).delete();
+  }
+
   Future<String> _uploadImage(File file, String name) async {
     final ref = _storage.ref("images/$name");
     final uploadTask = ref.putFile(file);
@@ -67,5 +72,17 @@ class UserCubit extends Cubit<UserState> {
     } catch (e) {
       debugPrint(e.toString());
     }
+  }
+
+  Future<void> updateEmail(String uid, String email) async {
+    try {
+      _userCollection.doc(uid).update({'userEmail': email});
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  static Stream<QuerySnapshot> getUsersList(String uid, String category) {
+    return _userCollection.where('uid', isNotEqualTo: uid).snapshots();
   }
 }
