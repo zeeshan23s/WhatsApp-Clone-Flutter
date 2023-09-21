@@ -78,6 +78,22 @@ class _AllUsersScreenState extends State<AllUsersScreen> {
                         itemCount: users.length,
                         itemBuilder: (context, index) {
                           return ListTile(
+                            onTap: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: ((context) => ChatScreen(
+                                      receiverUser: AppUser(
+                                          userId: users[index]['userId'],
+                                          userName: users[index]['userName'],
+                                          userAbout: users[index]['userAbout'],
+                                          userEmail: users[index]['userEmail'],
+                                          profileImageURL: users[index]
+                                              ['profileImageURL']),
+                                      chat: null)),
+                                ),
+                              );
+                            },
                             leading: SizedBox(
                               width: Responsive.screenWidth(context) * 0.15,
                               child: CircleAvatar(

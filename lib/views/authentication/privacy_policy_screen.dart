@@ -21,8 +21,9 @@ class PrivacyPolicyScreen extends StatelessWidget {
                     fontWeight: FontWeight.w700),
               ),
               Image.asset(
-                AppAssets.privacyPNG,
+                AppAssets.logoPNG,
                 color: AppColors.kPrimaryColor,
+                scale: 2,
               ),
               Column(
                 children: [

@@ -17,6 +17,7 @@ export 'views/loading_screen.dart';
 export 'views/chat/search_user_screen.dart';
 export 'views/chat/all_user_screen.dart';
 export 'views/setting_screen.dart';
+export 'views/chat/chat_screen.dart';
 
 // Authentication Exports
 export 'views/authentication/privacy_policy_screen.dart';
@@ -54,5 +55,7 @@ export 'cubits/user/user_cubit.dart';
 
 // Model Export
 export 'models/app_user.dart';
+export 'models/chat.dart';
 
 // Service Export
+export 'services/chat_controller.dart';
