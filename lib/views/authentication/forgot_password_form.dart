@@ -49,6 +49,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                     FormBuilderValidators.email(),
                   ],
                 ),
+                textInputAction: TextInputAction.done,
               ),
               SizedBox(height: Responsive.screenHeight(context) * 0.03),
               CustomizedButton(

@@ -1,9 +1,49 @@
-import '../exports.dart';
+import '../../exports.dart';
 
-class ChatController {
+part 'message_state.dart';
+
+class MessageCubit extends Cubit<MessageState> {
   static final _chatCollection = FirebaseFirestore.instance.collection('Chats');
+  MessageCubit() : super(MessageInitial());
 
-  static Future<void> sendMessage(
+  Future<void> getMessages({Chat? chat, required List<String> userIds}) async {
+    emit(MessageLoading());
+
+    try {
+      if (chat != null) {
+        emit(MessageLoaded(chat));
+      } else {
+        QuerySnapshot query = await _chatCollection
+            .where('userIds', arrayContains: userIds[0])
+            .get();
+        if (query.docs.isNotEmpty) {
+          QueryDocumentSnapshot? findedChats = query.docs.firstWhere(
+            (doc) => doc.get('userIds').contains(
+                  userIds[1],
+                ),
+          );
+          if (findedChats.exists) {
+            DocumentSnapshot firstChat = findedChats;
+            Chat searchChat = Chat(
+                chatId: firstChat['chatId'],
+                chat: firstChat['chat'],
+                userIds: firstChat['userIds']);
+            emit(MessageLoaded(searchChat));
+          } else {
+            emit(MessageLoaded(chat));
+          }
+        } else {
+          emit(MessageLoaded(chat));
+        }
+      }
+    } on FirebaseException catch (e) {
+      emit(MessageError(e.message ?? 'Unbale to load messages'));
+    } catch (e) {
+      emit(MessageError(e.toString()));
+    }
+  }
+
+  Future<void> sendMessage(
       {Chat? chat,
       required String message,
       required List<String> userIds,
@@ -34,20 +74,6 @@ class ChatController {
         : findedChat != null
             ? findedChat.chat
             : [];
-
-    // List<Map<String, dynamic>> messages = [
-    //   {
-    //     'date': '20/09/2023',
-    //     'messages': [
-    //       {
-    //         'senderId': 'rnnqC5njFfemg0qGz9qSHn323lm1',
-    //         'time': '09:30',
-    //         'message': '123'
-    //       }
-    //     ]
-    //   },
-    //   {'date': '21/09/2023', 'message': '2'}
-    // ];
 
     Map<String, dynamic>? todayMessages = newChat.where((element) {
       return element['date'] ==
@@ -80,12 +106,6 @@ class ChatController {
       });
     }
 
-    // newChat.add({
-    //   'message': message,
-    //   'datetime': Timestamp.now(),
-    //   'senderId': senderId
-    // });
-
     if (chat != null) {
       await _chatCollection.doc(chat.chatId).set(
           Chat(chatId: chat.chatId, chat: newChat, userIds: chat.userIds)
@@ -103,6 +123,8 @@ class ChatController {
       )
           .then((value) {
         _chatCollection.doc(value.id).update({'chatId': value.id});
+        emit(MessageLoaded(
+            Chat(chatId: value.id, chat: newChat, userIds: userIds)));
       });
     }
   }

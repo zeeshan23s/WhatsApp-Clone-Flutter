@@ -7,6 +7,7 @@ class CustomizedTextField extends StatelessWidget {
   final bool obscureText;
   final String? Function(String?)? validator;
   final String? initialValue;
+  final TextInputAction textInputAction;
   const CustomizedTextField(
       {super.key,
       required this.name,
@@ -14,14 +15,15 @@ class CustomizedTextField extends StatelessWidget {
       this.suffixIcon,
       this.obscureText = false,
       this.validator,
-      this.initialValue});
+      this.initialValue,
+      required this.textInputAction});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: Responsive.screenWidth(context) * 0.9,
       child: FormBuilderTextField(
-        textInputAction: TextInputAction.next,
+        textInputAction: textInputAction,
         validator: validator,
         initialValue: initialValue,
         name: name,

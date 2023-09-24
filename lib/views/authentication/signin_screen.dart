@@ -55,6 +55,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     FormBuilderValidators.email(),
                   ],
                 ),
+                textInputAction: TextInputAction.next,
               ),
               SizedBox(height: Responsive.screenHeight(context) * 0.015),
               CustomizedTextField(
@@ -75,6 +76,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 ),
                 obscureText: _isObscure,
                 validator: FormBuilderValidators.required(),
+                textInputAction: TextInputAction.done,
               ),
               SizedBox(height: Responsive.screenHeight(context) * 0.01),
               GestureDetector(

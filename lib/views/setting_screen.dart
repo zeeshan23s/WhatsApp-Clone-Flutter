@@ -101,6 +101,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 FormBuilderValidators.email(),
                               ],
                             ),
+                            textInputAction: TextInputAction.done,
                           ),
                         ),
                       );

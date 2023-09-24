@@ -23,6 +23,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => EmailVerificationCubit()),
         BlocProvider(create: (_) => UserCubit()),
         BlocProvider(create: (_) => ProfileImageCubit()),
+        BlocProvider(create: (_) => ChatCubit()),
+        BlocProvider(create: (_) => MessageCubit()),
       ],
       child: MaterialApp(
         title: 'WhatsApp',

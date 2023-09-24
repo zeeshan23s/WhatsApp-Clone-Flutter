@@ -1,3 +1,4 @@
+import 'package:chat_app/views/chat/all_chats_tab.dart';
 import 'package:chat_app/views/profile/profile_tab.dart';
 import '../exports.dart';
 
@@ -149,7 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Expanded(
                     child: tabIndex == 0
-                        ? Container()
+                        ? AllChatsScreen(user: widget.appUser)
                         : ProfileTab(appUser: widget.appUser))
               ],
             ),
@@ -178,6 +179,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       child: GestureDetector(
                         onTap: () {
+                          setState(() {
+                            isMenuOpen = false;
+                          });
                           Navigator.push(
                             context,
                             MaterialPageRoute(

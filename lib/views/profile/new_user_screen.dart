@@ -84,11 +84,13 @@ class _NewUserScreenState extends State<NewUserScreen> {
                 ]),
                 name: 'name',
                 hintText: 'Full Name',
+                textInputAction: TextInputAction.next,
               ),
               SizedBox(height: Responsive.screenHeight(context) * 0.015),
               const CustomizedTextField(
                 name: 'about',
                 hintText: 'About',
+                textInputAction: TextInputAction.done,
               ),
               SizedBox(height: Responsive.screenHeight(context) * 0.02),
               CustomizedButton(

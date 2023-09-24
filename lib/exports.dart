@@ -52,10 +52,9 @@ export 'package:flutter_bloc/flutter_bloc.dart';
 export 'cubits/auth/auth_cubit.dart';
 export 'cubits/email_verification/email_verification_cubit.dart';
 export 'cubits/user/user_cubit.dart';
+export 'cubits/chat/chat_cubit.dart';
+export 'cubits/message/message_cubit.dart';
 
 // Model Export
 export 'models/app_user.dart';
 export 'models/chat.dart';
-
-// Service Export
-export 'services/chat_controller.dart';

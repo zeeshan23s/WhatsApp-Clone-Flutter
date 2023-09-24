@@ -54,6 +54,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     FormBuilderValidators.email(),
                   ],
                 ),
+                textInputAction: TextInputAction.next,
               ),
               SizedBox(height: Responsive.screenHeight(context) * 0.015),
               CustomizedTextField(
@@ -74,6 +75,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 obscureText: _isObscure,
                 validator: FormBuilderValidators.required(),
+                textInputAction: TextInputAction.done,
               ),
               SizedBox(height: Responsive.screenHeight(context) * 0.03),
               BlocConsumer<AuthCubit, AuthState>(
